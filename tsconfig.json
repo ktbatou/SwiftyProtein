@@ -1,0 +1,18 @@
+{
+  "compilerOptions": { 
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+    "@components/*": ["src/components/*"],
+    "@fonts":["assets/fonts"],
+    "@icons": ["src/components/icons"],
+    "hooks": ["src/hooks"],
+    "@illustrations": ["src/components/illustrations"],
+    "@routes/*": ["src/routes/*"],
+    "@styles/*": ["src/styles/*"],
+    "@images/*": ["src/assets/images/*"],
+    "@lotties/*": ["src/assets/lotties/*"],
+    "@services/*": ["src/services/*"],
+  }},
+  "extends": "expo/tsconfig.base"
+}
