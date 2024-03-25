@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: "flex-end",
-    backgroundColor: "rgba(1, 0, 68, 0.60)",
+    backgroundColor: "rgba(1, 0, 23, 0.30)",
   },
   modalContainer: {
     width: "100%",
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 27,
     paddingTop: 34,
     paddingBottom: 20,
-    backgroundColor: "#E6ECFA",
+    backgroundColor: "#EFEFEF",
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
   },
