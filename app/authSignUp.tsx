@@ -6,13 +6,40 @@ import logoSource from "@images/molecule.png";
 import Button from "@components/Button";
 import typography from "@styles/typography";
 import FormInputTextController from "@components/containers/FormInputTextController";
-import useSignUpForm from "@routes/AuthSignUp/hooks/useSignUpForm";
+import useSignUpForm, {
+  IFormFields,
+} from "@routes/AuthSignUp/hooks/useSignUpForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
+import useSignUpMutation from "@routes/AuthSignUp/services/creatAccount";
+import { useEffect, useState } from "react";
+import { BiomitricIcon } from "@components/icons";
+import Modal from "@components/Modal";
 
 export default function SignUp() {
+  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("Sign Up failed");
+
   const { control: formControl, handleSubmit } = useSignUpForm();
-  
-  function submit() {}
+
+  const {
+    mutate: SignUpMuatation,
+    isSuccess,
+    isPending,
+    isError,
+    error,
+  } = useSignUpMutation();
+
+  function submit(data: IFormFields) {
+    SignUpMuatation(data);
+  }
+
+  useEffect(() => {
+    if (isError) {
+      setIsErrorModalVisible(true);
+      setErrorMessage(`Failed with error code :  ${error.code}`);
+    }
+  }, [isError]);
+
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
       <View style={styles.mainContainer}>
@@ -73,6 +100,7 @@ export default function SignUp() {
             title="confirm"
             onPress={handleSubmit(submit)}
             containerStyle={{ width: "100%" }}
+            loading={isPending}
           />
           <View style={{ flexDirection: "row", alignSelf: "center" }}>
             <Text
@@ -92,6 +120,15 @@ export default function SignUp() {
           </View>
         </View>
       </View>
+      <Modal
+        title="SignUp Error"
+        subtitle={ErrorMessage}
+        confirmButtonTitle="Confirm"
+        icon={<BiomitricIcon />}
+        onClose={() => setIsErrorModalVisible(false)}
+        visible={isErrorModalVisible}
+        onConfirm={() => setIsErrorModalVisible(false)}
+      />
     </SafeAreaView>
   );
 }

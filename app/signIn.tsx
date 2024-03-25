@@ -6,17 +6,37 @@ import logoSource from "@images/molecule.png";
 import Button from "@components/Button";
 import typography from "@styles/typography";
 import FormInputTextController from "@components/containers/FormInputTextController";
-import useSignInForm from "@routes/SignIn/hooks/useSignInForm";
+import useSignInForm, { IFormFields } from "@routes/SignIn/hooks/useSignInForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "@components/Modal";
 import { BiomitricIcon } from "@components/icons";
+import useSignInMutation from "@routes/SignIn/services/useSignInMuation";
 
 export default function SignIn() {
   const { control: formControl, handleSubmit } = useSignInForm();
-  const [isVisibile, setIsVisible] = useState(false);
+  const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("Sign in failed");
 
-  function submit() {}
+  const {
+    mutate: SignInMuatation,
+    isSuccess,
+    isPending,
+    isError,
+    error,
+  } = useSignInMutation();
+
+  function submit(data: IFormFields) {
+    SignInMuatation(data);
+  }
+
+  useEffect(() => {
+    if (isError) {
+      setIsErrorModalVisible(true);
+      setErrorMessage(`Failed with error code :  ${error.code}`);
+    }
+  }, [isError]);
+
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
       <View style={styles.mainContainer}>
@@ -60,8 +80,9 @@ export default function SignIn() {
         <View style={{ width: "100%" }}>
           <Button
             title="confirm"
-            onPress={()=>{setIsVisible(true)}}
+            onPress={handleSubmit(submit)}
             containerStyle={{ width: "100%" }}
+            loading={isPending}
           />
           <View style={{ flexDirection: "row", alignSelf: "center" }}>
             <Text
@@ -83,13 +104,13 @@ export default function SignIn() {
       </View>
 
       <Modal
-        title="Biometric authentication"
-        subtitle='Enable biometric authentication in your settings to log into your account.'
+        title="Sign In Error"
+        subtitle={ErrorMessage}
         confirmButtonTitle="Confirm"
         icon={<BiomitricIcon />}
-        onClose={() => setIsVisible(false)}
-        visible={isVisibile}
-        onConfirm={() => setIsVisible(false)}
+        onClose={() => setIsErrorModalVisible(false)}
+        visible={isErrorModalVisible}
+        onConfirm={() => setIsErrorModalVisible(false)}
       />
     </SafeAreaView>
   );

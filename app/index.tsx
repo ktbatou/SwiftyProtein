@@ -1,33 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import useLoadFonts from 'src/hooks/useLoadFonts';
+import useLoadFonts from "src/hooks/useLoadFonts";
 import * as ExpoSplashScreen from "expo-splash-screen";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import SplashScreen from "@components/splashScreen";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SignIn from "./signIn";
 
+const queryClient = new QueryClient();
 
 ExpoSplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  const text = "Open up App.js to start working on your app!"
   const [fontsLoaded] = useLoadFonts();
-  const [currentText, setCurrentText] = useState(text)
+
+  const [splashVisible, setSplashVisible] = useState(true);
+
   useEffect(() => {
     if (fontsLoaded) {
       ExpoSplashScreen.hideAsync();
+
+      const splashTimeout = setTimeout(() => {
+        setSplashVisible(false);
+      }, 3500);
+      return () => clearTimeout(splashTimeout);
     }
   }, [fontsLoaded]);
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (splashVisible) {
+    return <SplashScreen />;
+  } else
+    return (
+      <QueryClientProvider client={queryClient}>
+        <SignIn />
+      </QueryClientProvider>
+    );
+}
