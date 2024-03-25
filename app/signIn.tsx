@@ -10,7 +10,7 @@ import useSignInForm, { IFormFields } from "@routes/SignIn/hooks/useSignInForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
 import { useEffect, useState } from "react";
 import Modal from "@components/Modal";
-import { BiomitricIcon } from "@components/icons";
+import { InlineCircleExclamationIcon } from "@components/icons";
 import useSignInMutation from "@routes/SignIn/services/useSignInMuation";
 
 export default function SignIn() {
@@ -106,8 +106,8 @@ export default function SignIn() {
       <Modal
         title="Sign In Error"
         subtitle={ErrorMessage}
-        confirmButtonTitle="Confirm"
-        icon={<BiomitricIcon />}
+        confirmButtonTitle="OK"
+        icon={<InlineCircleExclamationIcon />}
         onClose={() => setIsErrorModalVisible(false)}
         visible={isErrorModalVisible}
         onConfirm={() => setIsErrorModalVisible(false)}

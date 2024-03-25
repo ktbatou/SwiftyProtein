@@ -10,9 +10,9 @@ import useSignUpForm, {
   IFormFields,
 } from "@routes/AuthSignUp/hooks/useSignUpForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
-import useSignUpMutation from "@routes/AuthSignUp/services/creatAccount";
+import useSignUpMutation from "@routes/AuthSignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
-import { BiomitricIcon } from "@components/icons";
+import { InlineCircleExclamationIcon } from "@components/icons";
 import Modal from "@components/Modal";
 
 export default function SignUp() {
@@ -123,8 +123,8 @@ export default function SignUp() {
       <Modal
         title="SignUp Error"
         subtitle={ErrorMessage}
-        confirmButtonTitle="Confirm"
-        icon={<BiomitricIcon />}
+        confirmButtonTitle="OK"
+        icon={<InlineCircleExclamationIcon />}
         onClose={() => setIsErrorModalVisible(false)}
         visible={isErrorModalVisible}
         onConfirm={() => setIsErrorModalVisible(false)}
