@@ -34,8 +34,8 @@ export default StyleSheet.create({
     alignSelf: "center",
   },
 
-  flexEnd:{
-    justifyContent: "flex-end"
+  flexEnd: {
+    justifyContent: "flex-end",
   },
   fullWidth: {
     width: "100%",
@@ -49,7 +49,7 @@ export default StyleSheet.create({
   mt10: {
     marginTop: 10,
   },
-  pt20:{
+  pt20: {
     paddingTop: 20,
-  }
+  },
 });
