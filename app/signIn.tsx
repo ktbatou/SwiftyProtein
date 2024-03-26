@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import Modal from "@components/Modal";
 import { InlineCircleExclamationIcon } from "@components/icons";
 import useSignInMutation from "@routes/SignIn/services/useSignInMuation";
+import { router } from "expo-router";
 
 export default function SignIn() {
   const { control: formControl, handleSubmit } = useSignInForm();
@@ -40,9 +41,19 @@ export default function SignIn() {
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
       <View style={styles.mainContainer}>
-        <View style={styles.logoContainer}>
-          <Image source={logoSource} />
-          <Text style={[typography.heading1Regular, styles.pinkText]}>
+        <View>
+          <Image
+            source={logoSource}
+            style={styles.image}
+            contentFit="contain"
+          />
+          <Text
+            style={[
+              typography.heading1Regular,
+              styles.pinkText,
+              styles.titleStyle,
+            ]}
+          >
             Swifty Protein
           </Text>
         </View>
@@ -94,7 +105,10 @@ export default function SignIn() {
             >
               {" You don’t have an account ? "}
             </Text>
-            <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+            <TouchableOpacity
+              style={{ justifyContent: "flex-end" }}
+              onPress={() => router.push("/authSignUp")}
+            >
               <Text style={[styles.pinkText, typography.bodyText2Regular]}>
                 Sign Up
               </Text>

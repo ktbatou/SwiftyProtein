@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#F8F8F8"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -29,8 +27,16 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font",
-      "expo-router"
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/sorts/italic.ttf",
+            "./assets//fonts/regular.ttf"
+          ]
+        }
+      ]
     ]
   }
 }

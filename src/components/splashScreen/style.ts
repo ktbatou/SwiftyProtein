@@ -13,6 +13,8 @@ export default StyleSheet.create({
     backgroundColor: colors.mainWhite,
   },
   title: {
+    marginTop: 20,
+    fontSize: 24,
     color: colors.lightPink,
   },
 });

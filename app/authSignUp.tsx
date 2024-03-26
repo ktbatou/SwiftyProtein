@@ -14,6 +14,7 @@ import useSignUpMutation from "@routes/AuthSignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
 import { InlineCircleExclamationIcon } from "@components/icons";
 import Modal from "@components/Modal";
+import { router } from "expo-router";
 
 export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
@@ -43,9 +44,19 @@ export default function SignUp() {
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
       <View style={styles.mainContainer}>
-        <View style={styles.logoContainer}>
-          <Image source={logoSource} />
-          <Text style={[typography.heading1Regular, styles.pinkText]}>
+        <View>
+          <Image
+            source={logoSource}
+            style={styles.image}
+            contentFit="contain"
+          />
+          <Text
+            style={[
+              typography.heading1Regular,
+              styles.pinkText,
+              styles.titleStyle,
+            ]}
+          >
             Swifty Protein
           </Text>
         </View>
@@ -112,7 +123,10 @@ export default function SignUp() {
             >
               {"Already have an account ? "}
             </Text>
-            <TouchableOpacity style={{ justifyContent: "flex-end" }}>
+            <TouchableOpacity
+              style={{ justifyContent: "flex-end" }}
+              onPress={() => router.push("/signIn")}
+            >
               <Text style={[styles.pinkText, typography.bodyText2Regular]}>
                 Sign In
               </Text>

@@ -13,8 +13,18 @@ export default StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
-  inputTitle: { marginLeft: 30, marginVertical: 10 },
-  logoContainer: {},
+  titleStyle: {
+    marginTop: 15,
+    alignSelf: "center",
+  },
+  inputTitle: {
+    marginLeft: 30,
+    marginVertical: 10,
+  },
+  image: {
+    height: 177,
+    width: 222,
+  },
   blackGrayText: {
     color: colors.blackGray,
   },
