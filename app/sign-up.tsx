@@ -173,7 +173,10 @@ export default function SignUp() {
             icon={<CircleCheckIcon />}
             onClose={() => setIsSuccessModalVisible(false)}
             visible={isSuccessModalVisible}
-            onConfirm={() => setIsSuccessModalVisible(false)}
+            onConfirm={() => {
+              setIsSuccessModalVisible(false);
+              setTimeout(() => router.replace("sign-in"), 1);
+            }}
           />
         </ScrollView>
       </KeyboardAvoidingView>

@@ -158,7 +158,10 @@ export default function SignIn() {
             icon={<CircleCheckIcon />}
             onClose={() => setIsSuccessModalVisible(false)}
             visible={isSuccessModalVisible}
-            onConfirm={() => setIsSuccessModalVisible(false)}
+            onConfirm={() => {
+              setIsSuccessModalVisible(false);
+              setTimeout(() => router.replace("ligands-list"), 1);
+            }}
           />
         </ScrollView>
       </KeyboardAvoidingView>
