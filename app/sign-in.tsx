@@ -23,13 +23,11 @@ import {
 } from "@components/icons";
 import useSignInMutation from "@routes/SignIn/services/useSignInMuation";
 import { router } from "expo-router";
-import Loader from "@components/Loader";
 
 export default function SignIn() {
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("Sign in failed");
-  const [isLoading, setIsLoading] = useState(false);
 
   const { control: formControl, handleSubmit } = useSignInForm();
 
@@ -162,17 +160,9 @@ export default function SignIn() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setIsLoading(true);
-
-              const timeoutId = setTimeout(() => {
-                setIsLoading(false);
-                router.replace("ligands-list");
-              }, 1);
-
-              return () => clearTimeout(timeoutId);
+              setTimeout(() => router.replace("ligands-list"), 0);
             }}
           />
-          <Loader isVisible={isLoading} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
