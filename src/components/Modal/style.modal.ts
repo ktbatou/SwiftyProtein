@@ -17,10 +17,18 @@ const styles = StyleSheet.create({
   wFull: {
     width: "100%",
   },
+
   overlay: {
     flex: 1,
     justifyContent: "flex-end",
     backgroundColor: "rgba(1, 0, 23, 0.30)",
+  },
+  crossIconStyle: {
+    width: "100%",
+    alignItems: "flex-end",
+  },
+  closeIconPlaceholder: {
+    height: 24,
   },
   modalContainer: {
     width: "100%",

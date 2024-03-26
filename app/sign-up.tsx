@@ -175,7 +175,7 @@ export default function SignUp() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setTimeout(() => router.replace("sign-in"), 1);
+              setTimeout(() => router.replace("sign-in"), 0);
             }}
           />
         </ScrollView>

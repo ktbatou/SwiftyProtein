@@ -6,14 +6,21 @@ import {
 import styles from "@routes/LigandsList/style";
 import LigandsArray from "@routes/LigandsList/ligandsArray";
 import InputText from "@components/InputText";
-import { AtomIcon, LogoutIcon } from "@components/icons";
+import {
+  AtomIcon,
+  InlineCircleExclamationIcon,
+  LogoutIcon,
+} from "@components/icons";
 import { useState } from "react";
 import typography from "@styles/typography";
+import { router } from "expo-router";
+import Modal from "@components/Modal";
 
 export default function LigandsList() {
   const { top } = useSafeAreaInsets();
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
 
   const filteredLigands = searchQuery
     ? LigandsArray.filter((ligand) =>
@@ -33,7 +40,10 @@ export default function LigandsList() {
             placeholder="Search ..."
             onChangeText={(text) => handleInputChange(text)}
           />
-          <TouchableOpacity style={styles.logout}>
+          <TouchableOpacity
+            style={styles.logout}
+            onPress={() => setIsWarningModalVisible(true)}
+          >
             <LogoutIcon />
           </TouchableOpacity>
         </View>
@@ -65,6 +75,20 @@ export default function LigandsList() {
           )}
         </ScrollView>
       </View>
+
+      <Modal
+        title="Warning"
+        subtitle="Are you sure you want to logout ?"
+        confirmButtonTitle="Yes"
+        icon={<InlineCircleExclamationIcon />}
+        onClose={() => setIsWarningModalVisible(false)}
+        visible={isWarningModalVisible}
+        onConfirm={() => {
+          setTimeout(() => router.replace("choose-auth"), 0);
+          setIsWarningModalVisible(false);
+        }}
+        closeIconVisibile={true}
+      />
     </SafeAreaView>
   );
 }

@@ -1,4 +1,3 @@
-import { lightColors } from "@rneui/base";
 import colors from "@styles/colors";
 import { StyleSheet } from "react-native";
 

@@ -160,7 +160,7 @@ export default function SignIn() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setTimeout(() => router.replace("ligands-list"), 1);
+              setTimeout(() => router.replace("ligands-list"), 0);
             }}
           />
         </ScrollView>
