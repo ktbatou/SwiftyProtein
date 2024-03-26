@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../firebaseConfig";
 import { useMutation } from "@tanstack/react-query";
-import { IFormFields } from "@routes/AuthSignUp/hooks/useSignUpForm";
+import { IFormFields } from "@routes/SignUp/hooks/useSignUpForm";
 
 async function signUp(params: IFormFields ) {
   const { email, password } = params;

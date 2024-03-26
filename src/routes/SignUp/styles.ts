@@ -5,6 +5,10 @@ export default StyleSheet.create({
   flex1: {
     flex: 1,
   },
+  flexGrow1: {
+    flexGrow: 1,
+  },
+
   mainContainer: {
     flex: 1,
     width: "100%",
@@ -25,6 +29,17 @@ export default StyleSheet.create({
     marginTop: 15,
     alignSelf: "center",
   },
+  rowContainer: {
+    flexDirection: "row",
+    alignSelf: "center",
+  },
+
+  flexEnd:{
+    justifyContent: "flex-end"
+  },
+  fullWidth: {
+    width: "100%",
+  },
   blackGrayText: {
     color: colors.blackGray,
   },
@@ -34,4 +49,7 @@ export default StyleSheet.create({
   mt10: {
     marginTop: 10,
   },
+  pt20:{
+    paddingTop: 20,
+  }
 });

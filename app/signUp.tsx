@@ -1,6 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "@routes/AuthSignUp/styles";
-import { View, Text, TouchableOpacity } from "react-native";
+import styles from "@routes/SignUp/styles";
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import { Image } from "expo-image";
 import logoSource from "@images/molecule.png";
 import Button from "@components/Button";
@@ -8,9 +8,9 @@ import typography from "@styles/typography";
 import FormInputTextController from "@components/containers/FormInputTextController";
 import useSignUpForm, {
   IFormFields,
-} from "@routes/AuthSignUp/hooks/useSignUpForm";
+} from "@routes/SignUp/hooks/useSignUpForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
-import useSignUpMutation from "@routes/AuthSignUp/services/useSignUpMutation";
+import useSignUpMutation from "@routes/SignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
 import { InlineCircleExclamationIcon } from "@components/icons";
 import Modal from "@components/Modal";
@@ -43,6 +43,16 @@ export default function SignUp() {
 
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
+       <KeyboardAvoidingView
+        style={styles.flex1}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <ScrollView
+          style={styles.flex1}
+          contentContainerStyle={styles.flexGrow1}
+          bounces={false}
+          showsVerticalScrollIndicator={false}
+        >
       <View style={styles.mainContainer}>
         <View>
           <Image
@@ -106,14 +116,14 @@ export default function SignUp() {
             placeholder="Confirm password"
           />
         </View>
-        <View style={{ width: "100%" }}>
+        <View style={[styles.fullWidth, styles.pt20]}>
           <Button
             title="confirm"
             onPress={handleSubmit(submit)}
-            containerStyle={{ width: "100%" }}
+            containerStyle={styles.fullWidth}
             loading={isPending}
           />
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
+          <View style={styles.rowContainer}>
             <Text
               style={[
                 styles.blackGrayText,
@@ -124,7 +134,7 @@ export default function SignUp() {
               {"Already have an account ? "}
             </Text>
             <TouchableOpacity
-              style={{ justifyContent: "flex-end" }}
+              style={styles.flexEnd}
               onPress={() => router.push("/signIn")}
             >
               <Text style={[styles.pinkText, typography.bodyText2Regular]}>
@@ -143,6 +153,8 @@ export default function SignUp() {
         visible={isErrorModalVisible}
         onConfirm={() => setIsErrorModalVisible(false)}
       />
+      </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
