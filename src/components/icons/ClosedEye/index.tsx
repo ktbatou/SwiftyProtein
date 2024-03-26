@@ -7,7 +7,7 @@ import Svg, {
   SvgProps,
 } from "react-native-svg";
 
-function UninvisibleEye(props: SvgProps) {
+function ClosedEye(props: SvgProps) {
   return (
     <Svg width={23} height={23} viewBox="0 0 23 23" fill="none" {...props}>
       <Path fill="url(#pattern0)" d="M0 0H23V23H0z" />
@@ -31,4 +31,4 @@ function UninvisibleEye(props: SvgProps) {
   );
 }
 
-export default UninvisibleEye;
+export default ClosedEye;

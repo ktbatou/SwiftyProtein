@@ -1,49 +1,56 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "@routes/SignIn/styles";
+import styles from "@routes/SignUp/styles";
 import {
   View,
   Text,
   TouchableOpacity,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
 } from "react-native";
 import { Image } from "expo-image";
 import logoSource from "@images/molecule.png";
 import Button from "@components/Button";
 import typography from "@styles/typography";
 import FormInputTextController from "@components/containers/FormInputTextController";
-import useSignInForm, { IFormFields } from "@routes/SignIn/hooks/useSignInForm";
+import useSignUpForm, { IFormFields } from "@routes/SignUp/hooks/useSignUpForm";
 import FormInputPasswordController from "@components/containers/FormInputPasswordController";
+import useSignUpMutation from "@routes/SignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
+import {
+  CircleCheckIcon,
+  InlineCircleExclamationIcon,
+} from "@components/icons";
 import Modal from "@components/Modal";
-import { InlineCircleExclamationIcon } from "@components/icons";
-import useSignInMutation from "@routes/SignIn/services/useSignInMuation";
 import { router } from "expo-router";
 
-export default function SignIn() {
-  const { control: formControl, handleSubmit } = useSignInForm();
+export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
-  const [ErrorMessage, setErrorMessage] = useState("Sign in failed");
+  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState("Sign Up failed");
+
+  const { control: formControl, handleSubmit } = useSignUpForm();
 
   const {
-    mutate: SignInMuatation,
+    mutate: signUpMuatation,
     isSuccess,
     isPending,
     isError,
     error,
-  } = useSignInMutation();
+  } = useSignUpMutation();
 
   function submit(data: IFormFields) {
-    SignInMuatation(data);
+    signUpMuatation(data);
   }
 
   useEffect(() => {
     if (isError) {
       setIsErrorModalVisible(true);
       setErrorMessage(`Failed with error code :  ${error.code}`);
+    } else if (isSuccess) {
+      setIsSuccessModalVisible(true);
     }
-  }, [isError]);
+  }, [isError, isSuccess]);
 
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
@@ -104,6 +111,21 @@ export default function SignIn() {
                 name="password"
                 placeholder="Password"
               />
+              <Text
+                style={[
+                  styles.inputTitle,
+                  styles.blackGrayText,
+                  styles.mt10,
+                  typography.bodyText1Regular,
+                ]}
+              >
+                Confirm password
+              </Text>
+              <FormInputPasswordController
+                control={formControl}
+                name="confirmPassword"
+                placeholder="Confirm password"
+              />
             </View>
             <View style={[styles.fullWidth, styles.pt20]}>
               <Button
@@ -120,14 +142,14 @@ export default function SignIn() {
                     { marginTop: 10 },
                   ]}
                 >
-                  {" You don’t have an account ? "}
+                  {"Already have an account ? "}
                 </Text>
                 <TouchableOpacity
                   style={styles.flexEnd}
-                  onPress={() => router.push("/signUp")}
+                  onPress={() => router.push("/sign-in")}
                 >
                   <Text style={[styles.pinkText, typography.bodyText2Regular]}>
-                    Sign Up
+                    Sign In
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -135,13 +157,23 @@ export default function SignIn() {
           </View>
 
           <Modal
-            title="Sign In Error"
+            title="SignUp Error"
             subtitle={ErrorMessage}
             confirmButtonTitle="OK"
             icon={<InlineCircleExclamationIcon />}
             onClose={() => setIsErrorModalVisible(false)}
             visible={isErrorModalVisible}
             onConfirm={() => setIsErrorModalVisible(false)}
+          />
+
+          <Modal
+            title="Great !"
+            subtitle="Your account has been created successfully"
+            confirmButtonTitle="Continue"
+            icon={<CircleCheckIcon />}
+            onClose={() => setIsSuccessModalVisible(false)}
+            visible={isSuccessModalVisible}
+            onConfirm={() => setIsSuccessModalVisible(false)}
           />
         </ScrollView>
       </KeyboardAvoidingView>

@@ -1,6 +1,6 @@
 import Svg, { G, Path, Defs, ClipPath, SvgProps } from "react-native-svg"
 
-function Biomitric(props: SvgProps) {
+function Biometric(props: SvgProps) {
   return (
     <Svg
       width={48}
@@ -22,4 +22,4 @@ function Biomitric(props: SvgProps) {
   )
 }
 
-export default Biomitric
+export default Biometric

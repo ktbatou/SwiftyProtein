@@ -91,10 +91,23 @@ function Modal(props: IModalProps) {
           <View style={styles.modalContent}>
             <View style={styles.alignCenter}>
               <View style={styles.mb25}>{icon}</View>
-              <Text style={[styles.modalTitle, styles.mb30, titleStyle, typography.heading1Regular]}>
+              <Text
+                style={[
+                  styles.modalTitle,
+                  styles.mb30,
+                  titleStyle,
+                  typography.heading1Regular,
+                ]}
+              >
                 {title}
               </Text>
-              <Text style={[styles.modalSubtitle, subtitleStyle, typography.subheadingRegular]}>
+              <Text
+                style={[
+                  styles.modalSubtitle,
+                  subtitleStyle,
+                  typography.subheadingRegular,
+                ]}
+              >
                 {subtitle}
               </Text>
             </View>

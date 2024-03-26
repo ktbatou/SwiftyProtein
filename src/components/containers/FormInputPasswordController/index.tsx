@@ -43,7 +43,6 @@ export default function FormInputPasswordController<
               onChangeText={field.onChange}
               onBlur={field.onBlur}
             />
-
             {fieldState.error ? (
               <View style={styles.errorContainer}>
                 <Text

@@ -4,7 +4,7 @@ import React, { useState, forwardRef } from "react";
 import { Pressable } from "react-native";
 
 import styles from "./style";
-import { UninvisibleEyeIcon, VisibleEyeIcon } from "@icons";
+import { ClosedEyeIcon, OpenEyeIcon } from "@icons";
 
 const InputPassword = forwardRef<RNEInput, InputProps>((props, ref) => {
   const [visible, setVisibility] = useState(false);
@@ -17,7 +17,7 @@ const InputPassword = forwardRef<RNEInput, InputProps>((props, ref) => {
       inputContainerStyle={[props.inputContainerStyle, styles.pr13]}
       rightIcon={
         <Pressable onPress={() => setVisibility(!visible)} style={styles.p5}>
-          {visible ? <UninvisibleEyeIcon /> : <VisibleEyeIcon />}
+          {visible ? <OpenEyeIcon /> : <ClosedEyeIcon />}
         </Pressable>
       }
     />
