@@ -13,6 +13,7 @@ import {
 
 import styles from "./style.modal";
 import typography from "@styles/typography";
+import { CrossIcon } from "@components/icons";
 
 type IModalProps = {
   visible: boolean;
@@ -25,6 +26,7 @@ type IModalProps = {
   titleStyle?: StyleProp<TextStyle>;
   subtitleStyle?: StyleProp<TextStyle>;
   buttonTitleStyle?: StyleProp<TextStyle>;
+  closeIconVisibile?: boolean;
   onClose?: () => void;
   onConfirm: () => void;
 };
@@ -43,13 +45,14 @@ function Modal(props: IModalProps) {
     subtitleStyle,
     titleStyle,
     buttonTitleStyle,
+    closeIconVisibile = false,
   } = props;
   const slideAnimation = useMemo(() => new Animated.Value(0), []);
 
   function slideUp() {
     Animated.timing(slideAnimation, {
       toValue: 1,
-      duration: 300,
+      duration: 100,
       useNativeDriver: true,
     }).start();
   }
@@ -61,7 +64,7 @@ function Modal(props: IModalProps) {
 
     Animated.timing(slideAnimation, {
       toValue: 0,
-      duration: 100,
+      duration: 80,
       useNativeDriver: true,
     }).start(onClose);
   }
@@ -88,6 +91,15 @@ function Modal(props: IModalProps) {
             { transform: [{ translateY }] },
           ]}
         >
+          <View style={styles.crossIconStyle}>
+            {closeIconVisibile ? (
+              <TouchableOpacity onPress={slideDown}>
+                <CrossIcon />
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.closeIconPlaceholder} />
+            )}
+          </View>
           <View style={styles.modalContent}>
             <View style={styles.alignCenter}>
               <View style={styles.mb25}>{icon}</View>

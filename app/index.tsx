@@ -26,6 +26,6 @@ export default function App() {
   if (splashVisible) {
     return <SplashScreen />;
   } else {
-    return <Redirect href={"/sign-in"} />;
+    return <Redirect href={"/choose-auth"} />;
   }
 }
