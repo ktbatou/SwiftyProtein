@@ -29,15 +29,25 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  rowContainer: {
+    marginTop: 10,
+    flexDirection: "row",
+    gap: 10,
+  },
+  logout: {
+    marginRight: 10,
+    alignSelf: "center",
+  },
+  inputConatiner: {
+    width: "90%",
+    alignSelf: "center",
+  },
 
   flex1: {
     flex: 1,
   },
   flexGrow1: {
     flexGrow: 1,
-  },
-  mt10: {
-    marginTop: 10,
   },
   fullWidth: {
     width: "100%",

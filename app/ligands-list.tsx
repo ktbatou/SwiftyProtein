@@ -6,7 +6,7 @@ import {
 import styles from "@routes/LigandsList/style";
 import LigandsArray from "@routes/LigandsList/ligandsArray";
 import InputText from "@components/InputText";
-import { AtomIcon } from "@components/icons";
+import { AtomIcon, LogoutIcon } from "@components/icons";
 import { useState } from "react";
 import typography from "@styles/typography";
 
@@ -27,11 +27,16 @@ export default function LigandsList() {
   return (
     <SafeAreaView style={styles.flex1} edges={{ top: "off" }}>
       <View style={[styles.contentContainer, { paddingTop: top }]}>
-        <InputText
-          containerStyle={styles.mt10}
-          placeholder="Search ..."
-          onChangeText={(text) => handleInputChange(text)}
-        />
+        <View style={styles.rowContainer}>
+          <InputText
+            containerStyle={styles.inputConatiner}
+            placeholder="Search ..."
+            onChangeText={(text) => handleInputChange(text)}
+          />
+          <TouchableOpacity style={styles.logout}>
+            <LogoutIcon />
+          </TouchableOpacity>
+        </View>
         <ScrollView
           style={styles.flex1}
           contentContainerStyle={[styles.flexGrow1]}
