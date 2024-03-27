@@ -14,7 +14,7 @@ export default function App() {
 
   const checkFirstLaunch = async () => {
     const _first_launch = await AsyncStorage.getItem("FIRST_LAUNCH");
-    console.log(_first_launch);
+
     if (!_first_launch) {
       AsyncStorage.setItem("FIRST_LAUNCH", "Done");
       setFirstLaunch(true);

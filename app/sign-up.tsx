@@ -18,20 +18,28 @@ import FormInputPasswordController from "@components/containers/FormInputPasswor
 import useSignUpMutation from "@routes/SignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
 import {
+  BiometricIcon,
   CircleCheckIcon,
   InlineCircleExclamationIcon,
 } from "@components/icons";
 import Modal from "@components/Modal";
 import { router } from "expo-router";
+import UseBiometricsAuth from "src/hooks/useBiometricsAuth";
 import Loader from "@components/Loader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("Sign Up failed");
+  const [warningBiometricModalVisibile, setwarningBiometricModalVisibile] =
+    useState(false);
+  const [BiometricModalVisibile, setBiometricModalVisibile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { control: formControl, handleSubmit } = useSignUpForm();
+  const biometric = UseBiometricsAuth();
+  const _first_launch = AsyncStorage.getItem("FIRST_LAUNCH");
 
   const {
     mutate: signUpMuatation,
@@ -43,6 +51,36 @@ export default function SignUp() {
 
   function submit(data: IFormFields) {
     signUpMuatation(data);
+  }
+
+  async function checkBiometric() {
+    const isDeviceHasBiometric = await biometric.hasHardware();
+    if (isDeviceHasBiometric) {
+      const isEnrolled = await biometric.isEnrolled();
+      if (isEnrolled) {
+        setBiometricModalVisibile(true);
+      } else setwarningBiometricModalVisibile(true);
+    } else {
+      router.replace("sign-in");
+    }
+  }
+
+  async function authenticate() {
+    const biometricAuthentication = await biometric.Auth();
+
+    if (biometricAuthentication.success) {
+      setIsLoading(true);
+      setBiometricModalVisibile(false);
+
+      setTimeout(() => {
+        setIsLoading(false);
+        router.replace("ligands-list");
+      }, 1);
+    } else {
+      setBiometricModalVisibile(false);
+      setIsLoading(false);
+      setIsErrorModalVisible(true);
+    }
   }
 
   useEffect(() => {
@@ -136,31 +174,37 @@ export default function SignUp() {
                 containerStyle={styles.fullWidth}
                 loading={isPending}
               />
-              <View style={styles.rowContainer}>
-                <Text
-                  style={[
-                    styles.blackGrayText,
-                    typography.bodyText2Regular,
-                    { marginTop: 10 },
-                  ]}
-                >
-                  {"Already have an account ? "}
-                </Text>
-                <TouchableOpacity
-                  style={styles.flexEnd}
-                  onPress={() => router.push("/sign-in")}
-                >
-                  <Text style={[styles.pinkText, typography.bodyText2Regular]}>
-                    Sign In
+              {!_first_launch && (
+                <View style={styles.rowContainer}>
+                  <Text
+                    style={[
+                      styles.blackGrayText,
+                      typography.bodyText2Regular,
+                      { marginTop: 10 },
+                    ]}
+                  >
+                    {"Already have an account ? "}
                   </Text>
-                </TouchableOpacity>
-              </View>
+                  <TouchableOpacity
+                    style={styles.flexEnd}
+                    onPress={() => checkBiometric()}
+                  >
+                    <Text
+                      style={[styles.pinkText, typography.bodyText2Regular]}
+                    >
+                      Sign In
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           </View>
 
           <Modal
-            title="SignUp Error"
-            subtitle={ErrorMessage}
+            title="Oops ! Error"
+            subtitle={
+              ErrorMessage ? ErrorMessage : "An error occured, try again"
+            }
             confirmButtonTitle="OK"
             icon={<InlineCircleExclamationIcon />}
             onClose={() => setIsErrorModalVisible(false)}
@@ -186,6 +230,26 @@ export default function SignUp() {
 
               return () => clearTimeout(timeoutId);
             }}
+          />
+
+          <Modal
+            title="Biometric authentication"
+            subtitle="Enable biometric authentication in your settings to log into your account."
+            confirmButtonTitle="Ok"
+            icon={<BiometricIcon />}
+            onClose={() => setwarningBiometricModalVisibile(false)}
+            visible={warningBiometricModalVisibile}
+            onConfirm={() => setwarningBiometricModalVisibile(false)}
+          />
+
+          <Modal
+            title="Biometric authentication"
+            subtitle="Authenticate with biometric"
+            confirmButtonTitle="Sign In"
+            icon={<BiometricIcon />}
+            onClose={() => setBiometricModalVisibile(false)}
+            visible={BiometricModalVisibile}
+            onConfirm={() => authenticate()}
           />
           <Loader isVisible={isLoading} />
         </ScrollView>
