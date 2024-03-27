@@ -23,11 +23,13 @@ import {
 } from "@components/icons";
 import Modal from "@components/Modal";
 import { router } from "expo-router";
+import Loader from "@components/Loader";
 
 export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState("Sign Up failed");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { control: formControl, handleSubmit } = useSignUpForm();
 
@@ -175,9 +177,17 @@ export default function SignUp() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setTimeout(() => router.replace("sign-in"), 0);
+              setIsLoading(true);
+
+              const timeoutId = setTimeout(() => {
+                setIsLoading(false);
+                router.replace("sign-in");
+              }, 1);
+
+              return () => clearTimeout(timeoutId);
             }}
           />
+          <Loader isVisible={isLoading} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

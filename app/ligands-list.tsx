@@ -15,11 +15,13 @@ import { useState } from "react";
 import typography from "@styles/typography";
 import { router } from "expo-router";
 import Modal from "@components/Modal";
+import Loader from "@components/Loader";
 
 export default function LigandsList() {
   const { top } = useSafeAreaInsets();
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
 
   const filteredLigands = searchQuery
@@ -84,11 +86,18 @@ export default function LigandsList() {
         onClose={() => setIsWarningModalVisible(false)}
         visible={isWarningModalVisible}
         onConfirm={() => {
-          setTimeout(() => router.replace("choose-auth"), 0);
           setIsWarningModalVisible(false);
+          setIsLoading(true);
+          const timeoutId = setTimeout(() => {
+            setIsLoading(false);
+            router.replace("choose-auth");
+          }, 1);
+          setIsWarningModalVisible(false);
+          return () => clearTimeout(timeoutId);
         }}
         closeIconVisibile={true}
       />
+      <Loader isVisible={isLoading} />
     </SafeAreaView>
   );
 }
