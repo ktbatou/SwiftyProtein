@@ -25,6 +25,7 @@ import {
 import Modal from "@components/Modal";
 import { router } from "expo-router";
 import UseBiometricsAuth from "src/hooks/useBiometricsAuth";
+import Loader from "@components/Loader";
 
 export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
@@ -33,6 +34,7 @@ export default function SignUp() {
   const [warningBiometricModalVisibile, setwarningBiometricModalVisibile] =
     useState(false);
   const [BiometricModalVisibile, setBiometricModalVisibile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { control: formControl, handleSubmit } = useSignUpForm();
   const biometric = UseBiometricsAuth();
@@ -205,7 +207,14 @@ export default function SignUp() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setTimeout(() => router.replace("sign-in"), 0);
+              setIsLoading(true);
+
+              const timeoutId = setTimeout(() => {
+                setIsLoading(false);
+                router.replace("sign-in");
+              }, 1);
+
+              return () => clearTimeout(timeoutId);
             }}
           />
 
@@ -228,6 +237,7 @@ export default function SignUp() {
             visible={BiometricModalVisibile}
             onConfirm={() => authenticate()}
           />
+          <Loader isVisible={isLoading} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
