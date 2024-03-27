@@ -26,6 +26,7 @@ import Modal from "@components/Modal";
 import { router } from "expo-router";
 import UseBiometricsAuth from "src/hooks/useBiometricsAuth";
 import Loader from "@components/Loader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SignUp() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
@@ -38,6 +39,7 @@ export default function SignUp() {
 
   const { control: formControl, handleSubmit } = useSignUpForm();
   const biometric = UseBiometricsAuth();
+  const _first_launch = AsyncStorage.getItem("FIRST_LAUNCH");
 
   const {
     mutate: signUpMuatation,
@@ -65,10 +67,18 @@ export default function SignUp() {
 
   async function authenticate() {
     const biometricAuthentication = await biometric.Auth();
+
     if (biometricAuthentication.success) {
+      setIsLoading(true);
       setBiometricModalVisibile(false);
-      router.replace("ligands-list");
+
+      setTimeout(() => {
+        setIsLoading(false);
+        router.replace("ligands-list");
+      }, 1);
     } else {
+      setBiometricModalVisibile(false);
+      setIsLoading(false);
       setIsErrorModalVisible(true);
     }
   }
@@ -164,25 +174,29 @@ export default function SignUp() {
                 containerStyle={styles.fullWidth}
                 loading={isPending}
               />
-              <View style={styles.rowContainer}>
-                <Text
-                  style={[
-                    styles.blackGrayText,
-                    typography.bodyText2Regular,
-                    { marginTop: 10 },
-                  ]}
-                >
-                  {"Already have an account ? "}
-                </Text>
-                <TouchableOpacity
-                  style={styles.flexEnd}
-                  onPress={() => checkBiometric()}
-                >
-                  <Text style={[styles.pinkText, typography.bodyText2Regular]}>
-                    Sign In
+              {!_first_launch && (
+                <View style={styles.rowContainer}>
+                  <Text
+                    style={[
+                      styles.blackGrayText,
+                      typography.bodyText2Regular,
+                      { marginTop: 10 },
+                    ]}
+                  >
+                    {"Already have an account ? "}
                   </Text>
-                </TouchableOpacity>
-              </View>
+                  <TouchableOpacity
+                    style={styles.flexEnd}
+                    onPress={() => checkBiometric()}
+                  >
+                    <Text
+                      style={[styles.pinkText, typography.bodyText2Regular]}
+                    >
+                      Sign In
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           </View>
 

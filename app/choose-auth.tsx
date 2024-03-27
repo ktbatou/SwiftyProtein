@@ -10,12 +10,14 @@ import UseBiometricsAuth from "src/hooks/useBiometricsAuth";
 import { BiometricIcon, InlineCircleExclamationIcon } from "@components/icons";
 import { useState } from "react";
 import Modal from "@components/Modal";
+import Loader from "@components/Loader";
 
 export default function ChooseAuth() {
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
   const [warningBiometricModalVisibile, setwarningBiometricModalVisibile] =
     useState(false);
   const [BiometricModalVisibile, setBiometricModalVisibile] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const biometric = UseBiometricsAuth();
 
@@ -33,10 +35,18 @@ export default function ChooseAuth() {
 
   async function authenticate() {
     const biometricAuthentication = await biometric.Auth();
+
     if (biometricAuthentication.success) {
+      setIsLoading(true);
       setBiometricModalVisibile(false);
-      router.replace("ligands-list");
+
+      setTimeout(() => {
+        setIsLoading(false);
+        router.replace("ligands-list");
+      }, 1);
     } else {
+      setBiometricModalVisibile(false);
+      setIsLoading(false);
       setIsErrorModalVisible(true);
     }
   }
@@ -103,6 +113,7 @@ export default function ChooseAuth() {
         visible={BiometricModalVisibile}
         onConfirm={() => authenticate()}
       />
+      <Loader isVisible={isLoading} />
     </SafeAreaView>
   );
 }
