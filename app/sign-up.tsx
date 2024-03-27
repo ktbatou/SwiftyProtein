@@ -36,10 +36,10 @@ export default function SignUp() {
     useState(false);
   const [BiometricModalVisibile, setBiometricModalVisibile] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAppFirstLaunch, setIsAppFirstLaunch] = useState(false);
 
   const { control: formControl, handleSubmit } = useSignUpForm();
   const biometric = UseBiometricsAuth();
-  const _first_launch = AsyncStorage.getItem("FIRST_LAUNCH");
 
   const {
     mutate: signUpMuatation,
@@ -91,6 +91,20 @@ export default function SignUp() {
       setIsSuccessModalVisible(true);
     }
   }, [isError, isSuccess]);
+
+  useEffect(() => {
+    const checkFirstLaunch = async () => {
+      const _first_launch = await AsyncStorage.getItem("ALREADY_LAUNCH");
+
+      if (!_first_launch) {
+        AsyncStorage.setItem("ALREADY_LAUNCH", "TRUE");
+        setIsAppFirstLaunch(true);
+      } else {
+        setIsAppFirstLaunch(false);
+      }
+    };
+    checkFirstLaunch();
+  }, []);
 
   return (
     <SafeAreaView edges={{ top: "off" }} style={styles.flex1}>
@@ -174,7 +188,7 @@ export default function SignUp() {
                 containerStyle={styles.fullWidth}
                 loading={isPending}
               />
-              {!_first_launch && (
+              {!isAppFirstLaunch && (
                 <View style={styles.rowContainer}>
                   <Text
                     style={[
