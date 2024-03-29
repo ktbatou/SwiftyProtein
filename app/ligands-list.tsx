@@ -15,9 +15,13 @@ import { useState } from "react";
 import typography from "@styles/typography";
 import { router } from "expo-router";
 import Modal from "@components/Modal";
+import ligandParser from "@utils/ligandParser";
+import { useAppContext } from "src/lib/AppContext";
 
 export default function LigandsList() {
   const { top } = useSafeAreaInsets();
+  const [isLoading, setIsLoading] = useState(false);
+  const { setLigandData } = useAppContext();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
@@ -31,6 +35,26 @@ export default function LigandsList() {
   function handleInputChange(text: string) {
     setSearchQuery(text);
   }
+
+  function onPress(ligand: string) {
+    setIsLoading(true);
+    ligandParser(ligand)
+      .then((value) => {
+        if (!value) {
+          alert("Error has occurred while looking for the ligand");
+          setIsLoading(false);
+          return;
+        }
+        setLigandData(value);
+        router.push("/ligand");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        alert("Error has occurred while looking for the ligand");
+        setIsLoading(false);
+      });
+  }
+
   return (
     <SafeAreaView style={styles.flex1} edges={{ top: "off" }}>
       <View style={[styles.contentContainer, { paddingTop: top }]}>
@@ -53,6 +77,7 @@ export default function LigandsList() {
           bounces={false}
           showsVerticalScrollIndicator={true}
         >
+          {isLoading && <Text>...isLoading</Text>}
           {filteredLigands.length === 0 ? (
             <View style={styles.centerContainer}>
               <Text style={[typography.heading1Regular, styles.grayText]}>
@@ -63,7 +88,7 @@ export default function LigandsList() {
             <View style={[styles.fullWidth, styles.ligandsListContainer]}>
               {filteredLigands.map((ligand, index) => {
                 return (
-                  <TouchableOpacity onPress={() => {}} key={index}>
+                  <TouchableOpacity onPress={() => onPress(ligand)} key={index}>
                     <View style={styles.ligandContainer}>
                       <AtomIcon />
                       <Text style={styles.ligandText}>{ligand}</Text>

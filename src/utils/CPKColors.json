@@ -1,0 +1,656 @@
+{
+  "H": {
+    "name": "Hydrogen",
+    "jmol": "#FFFFFF",
+    "rasmol": "#FFFFFF",
+    "phase": "Gas"
+  },
+  "He": {
+    "name": "Helium",
+    "jmol": "#D9FFFF",
+    "rasmol": "#FFC0CB",
+    "phase": "Gas"
+  },
+  "Li": {
+    "name": "Lithium",
+    "jmol": "#CC80FF",
+    "rasmol": "#B22222",
+    "phase": "Solid"
+  },
+  "Be": {
+    "name": "Beryllium",
+    "jmol": "#C2FF00",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "B": {
+    "name": "Boron",
+    "jmol": "#FFB5B5",
+    "rasmol": "#00FF00",
+    "phase": "Solid"
+  },
+  "C": {
+    "name": "Carbon",
+    "jmol": "#909090",
+    "rasmol": "#C8C8C8",
+    "phase": "Solid"
+  },
+  "N": {
+    "name": "Nitrogen",
+    "jmol": "#3050F8",
+    "rasmol": "#8F8FFF",
+    "phase": "Gas"
+  },
+  "O": {
+    "name": "Oxygen",
+    "jmol": "#FF0D0D",
+    "rasmol": "#F00000",
+    "phase": "Gas"
+  },
+  "F": {
+    "name": "Fluorine",
+    "jmol": "#90E050",
+    "rasmol": "#DAA520",
+    "phase": "Gas"
+  },
+  "Ne": {
+    "name": "Neon",
+    "jmol": "#B3E3F5",
+    "rasmol": "#FF1493",
+    "phase": "Gas"
+  },
+  "Na": {
+    "name": "Sodium",
+    "jmol": "#AB5CF2",
+    "rasmol": "#0000FF",
+    "phase": "Solid"
+  },
+  "Mg": {
+    "name": "Magnesium",
+    "jmol": "#8AFF00",
+    "rasmol": "#228B22",
+    "phase": "Solid"
+  },
+  "Al": {
+    "name": "Aluminum",
+    "jmol": "#BFA6A6",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "Si": {
+    "name": "Silicon",
+    "jmol": "#F0C8A0",
+    "rasmol": "#DAA520",
+    "phase": "Solid"
+  },
+  "P": {
+    "name": "Phosphorus",
+    "jmol": "#FF8000",
+    "rasmol": "#FFA500",
+    "phase": "Solid"
+  },
+  "S": {
+    "name": "Sulfur",
+    "jmol": "#FFFF30",
+    "rasmol": "#FFC832",
+    "phase": "Solid"
+  },
+  "Cl": {
+    "name": "Chlorine",
+    "jmol": "#1FF01F",
+    "rasmol": "#00FF00",
+    "phase": "Gas"
+  },
+  "Ar": {
+    "name": "Argon",
+    "jmol": "#80D1E3",
+    "rasmol": "#FF1493",
+    "phase": "Gas"
+  },
+  "K": {
+    "name": "Potassium",
+    "jmol": "#8F40D4",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ca": {
+    "name": "Calcium",
+    "jmol": "#3DFF00",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "Sc": {
+    "name": "Scandium",
+    "jmol": "#E6E6E6",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ti": {
+    "name": "Titanium",
+    "jmol": "#BFC2C7",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "V": {
+    "name": "Vanadium",
+    "jmol": "#A6A6AB",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Cr": {
+    "name": "Chromium",
+    "jmol": "#8A99C7",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "Mn": {
+    "name": "Manganese",
+    "jmol": "#9C7AC7",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "Fe": {
+    "name": "Iron",
+    "jmol": "#E06633",
+    "rasmol": "#FFA500",
+    "phase": "Solid"
+  },
+  "Co": {
+    "name": "Cobalt",
+    "jmol": "#F090A0",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ni": {
+    "name": "Nickel",
+    "jmol": "#50D050",
+    "rasmol": "#A52A2A",
+    "phase": "Solid"
+  },
+  "Cu": {
+    "name": "Copper",
+    "jmol": "#C88033",
+    "rasmol": "#A52A2A",
+    "phase": "Solid"
+  },
+  "Zn": {
+    "name": "Zinc",
+    "jmol": "#7D80B0",
+    "rasmol": "#A52A2A",
+    "phase": "Solid"
+  },
+  "Ga": {
+    "name": "Gallium",
+    "jmol": "#C28F8F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ge": {
+    "name": "Germanium",
+    "jmol": "#668F8F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "As": {
+    "name": "Arsenic",
+    "jmol": "#BD80E3",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Se": {
+    "name": "Selenium",
+    "jmol": "#FFA100",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Br": {
+    "name": "Bromine",
+    "jmol": "#A62929",
+    "rasmol": "#A52A2A",
+    "phase": "Liquid"
+  },
+  "Kr": {
+    "name": "Krypton",
+    "jmol": "#5CB8D1",
+    "rasmol": "#FF1493",
+    "phase": "Gas"
+  },
+  "Rb": {
+    "name": "Rubidium",
+    "jmol": "#702EB0",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Sr": {
+    "name": "Strontium",
+    "jmol": "#00FF00",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Y": {
+    "name": "Yttrium",
+    "jmol": "#94FFFF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Zr": {
+    "name": "Zirconium",
+    "jmol": "#94E0E0",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Nb": {
+    "name": "Niobium",
+    "jmol": "#73C2C9",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Mo": {
+    "name": "Molybdenum",
+    "jmol": "#54B5B5",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Tc": {
+    "name": "Technetium",
+    "jmol": "#3B9E9E",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ru": {
+    "name": "Ruthenium",
+    "jmol": "#248F8F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Rh": {
+    "name": "Rhodium",
+    "jmol": "#0A7D8C",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pd": {
+    "name": "Palladium",
+    "jmol": "#006985",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ag": {
+    "name": "Silver",
+    "jmol": "#C0C0C0",
+    "rasmol": "#808090",
+    "phase": "Solid"
+  },
+  "Cd": {
+    "name": "Cadmium",
+    "jmol": "#FFD98F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "In": {
+    "name": "Indium",
+    "jmol": "#A67573",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Sn": {
+    "name": "Tin",
+    "jmol": "#668080",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Sb": {
+    "name": "Antimony",
+    "jmol": "#9E63B5",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Te": {
+    "name": "Tellurium",
+    "jmol": "#D47A00",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "I": {
+    "name": "Iodine",
+    "jmol": "#940094",
+    "rasmol": "#A020F0",
+    "phase": "Solid"
+  },
+  "Xe": {
+    "name": "Xenon",
+    "jmol": "#429EB0",
+    "rasmol": "#FF1493",
+    "phase": "Gas"
+  },
+  "Cs": {
+    "name": "Cesium",
+    "jmol": "#57178F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ba": {
+    "name": "Barium",
+    "jmol": "#00C900",
+    "rasmol": "#FFA500",
+    "phase": "Solid"
+  },
+  "La": {
+    "name": "Lanthanum",
+    "jmol": "#70D4FF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ce": {
+    "name": "Cerium",
+    "jmol": "#FFFFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pr": {
+    "name": "Praseodymium",
+    "jmol": "#D9FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Nd": {
+    "name": "Neodymium",
+    "jmol": "#C7FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pm": {
+    "name": "Promethium",
+    "jmol": "#A3FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Sm": {
+    "name": "Samarium",
+    "jmol": "#8FFFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Eu": {
+    "name": "Europium",
+    "jmol": "#61FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Gd": {
+    "name": "Gadolinium",
+    "jmol": "#45FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Tb": {
+    "name": "Terbium",
+    "jmol": "#30FFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Dy": {
+    "name": "Dysprosium",
+    "jmol": "#1FFFC7",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ho": {
+    "name": "Holmium",
+    "jmol": "#00FF9C",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Er": {
+    "name": "Erbium",
+    "jmol": "#00E675",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Tm": {
+    "name": "Thulium",
+    "jmol": "#00D452",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Yb": {
+    "name": "Ytterbium",
+    "jmol": "#00BF38",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Lu": {
+    "name": "Lutetium",
+    "jmol": "#00AB24",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Hf": {
+    "name": "Hafnium",
+    "jmol": "#4DC2FF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ta": {
+    "name": "Tantalum",
+    "jmol": "#4DA6FF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "W": {
+    "name": "Tungsten",
+    "jmol": "#2194D6",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Re": {
+    "name": "Rhenium",
+    "jmol": "#267DAB",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Os": {
+    "name": "Osmium",
+    "jmol": "#266696",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ir": {
+    "name": "Iridium",
+    "jmol": "#175487",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pt": {
+    "name": "Platinum",
+    "jmol": "#D0D0E0",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Au": {
+    "name": "Gold",
+    "jmol": "#FFD123",
+    "rasmol": "#DAA520",
+    "phase": "Solid"
+  },
+  "Hg": {
+    "name": "Mercury",
+    "jmol": "#B8B8D0",
+    "rasmol": "#FF1493",
+    "phase": "Liquid"
+  },
+  "Tl": {
+    "name": "Thallium",
+    "jmol": "#A6544D",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pb": {
+    "name": "Lead",
+    "jmol": "#575961",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Bi": {
+    "name": "Bismuth",
+    "jmol": "#9E4FB5",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Po": {
+    "name": "Polonium",
+    "jmol": "#AB5C00",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "At": {
+    "name": "Astatine",
+    "jmol": "#754F45",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Rn": {
+    "name": "Radon",
+    "jmol": "#428296",
+    "rasmol": "#FF1493",
+    "phase": "Gas"
+  },
+  "Fr": {
+    "name": "Francium",
+    "jmol": "#420066",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ra": {
+    "name": "Radium",
+    "jmol": "#007D00",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Ac": {
+    "name": "Actinium",
+    "jmol": "#70ABFA",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Th": {
+    "name": "Thorium",
+    "jmol": "#00BAFF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pa": {
+    "name": "Protactinium",
+    "jmol": "#00A1FF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "U": {
+    "name": "Uranium",
+    "jmol": "#008FFF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Np": {
+    "name": "Neptunium",
+    "jmol": "#0080FF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Pu": {
+    "name": "Plutonium",
+    "jmol": "#006BFF",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Am": {
+    "name": "Americium",
+    "jmol": "#545CF2",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Cm": {
+    "name": "Curium",
+    "jmol": "#785CE3",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Bk": {
+    "name": "Berkelium",
+    "jmol": "#8A4FE3",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Cf": {
+    "name": "Californium",
+    "jmol": "#A136D4",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Es": {
+    "name": "Einsteinium",
+    "jmol": "#B31FD4",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Fm": {
+    "name": "Fermium",
+    "jmol": "#B31FBA",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Md": {
+    "name": "Mendelevium",
+    "jmol": "#B30DA6",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "No": {
+    "name": "Nobelium",
+    "jmol": "#BD0D87",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Lr": {
+    "name": "Lawrencium",
+    "jmol": "#C70066",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Rf": {
+    "name": "Rutherfordium",
+    "jmol": "#CC0059",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Db": {
+    "name": "Dubnium",
+    "jmol": "#D1004F",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Sg": {
+    "name": "Seaborgium",
+    "jmol": "#D90045",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Bh": {
+    "name": "Bohrium",
+    "jmol": "#E00038",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Hs": {
+    "name": "Hassium",
+    "jmol": "#E6002E",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  },
+  "Mt": {
+    "name": "Meitnerium",
+    "jmol": "#EB0026",
+    "rasmol": "#FF1493",
+    "phase": "Solid"
+  }
+}
