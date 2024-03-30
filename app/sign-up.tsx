@@ -18,7 +18,6 @@ import FormInputPasswordController from "@components/containers/FormInputPasswor
 import useSignUpMutation from "@routes/SignUp/services/useSignUpMutation";
 import { useEffect, useState } from "react";
 import {
-  BiometricIcon,
   CircleCheckIcon,
   InlineCircleExclamationIcon,
 } from "@components/icons";
@@ -51,36 +50,6 @@ export default function SignUp() {
 
   function submit(data: IFormFields) {
     signUpMuatation(data);
-  }
-
-  async function checkBiometric() {
-    const isDeviceHasBiometric = await biometric.hasHardware();
-    if (isDeviceHasBiometric) {
-      const isEnrolled = await biometric.isEnrolled();
-      if (isEnrolled) {
-        setBiometricModalVisibile(true);
-      } else setwarningBiometricModalVisibile(true);
-    } else {
-      router.replace("sign-in");
-    }
-  }
-
-  async function authenticate() {
-    const biometricAuthentication = await biometric.Auth();
-
-    if (biometricAuthentication.success) {
-      setIsLoading(true);
-      setBiometricModalVisibile(false);
-
-      setTimeout(() => {
-        setIsLoading(false);
-        router.replace("ligands-list");
-      }, 1);
-    } else {
-      setBiometricModalVisibile(false);
-      setIsLoading(false);
-      setIsErrorModalVisible(true);
-    }
   }
 
   useEffect(() => {
@@ -183,7 +152,7 @@ export default function SignUp() {
             </View>
             <View style={[styles.fullWidth, styles.pt20]}>
               <Button
-                title="confirm"
+                title="Confirm"
                 onPress={handleSubmit(submit)}
                 containerStyle={styles.fullWidth}
                 loading={isPending}
@@ -201,7 +170,7 @@ export default function SignUp() {
                   </Text>
                   <TouchableOpacity
                     style={styles.flexEnd}
-                    onPress={() => checkBiometric()}
+                    onPress={() => router.replace("sign-in")}
                   >
                     <Text
                       style={[styles.pinkText, typography.bodyText2Regular]}
@@ -235,10 +204,8 @@ export default function SignUp() {
             visible={isSuccessModalVisible}
             onConfirm={() => {
               setIsSuccessModalVisible(false);
-              setIsLoading(true);
 
               const timeoutId = setTimeout(() => {
-                setIsLoading(false);
                 router.replace("sign-in");
               }, 1);
 
@@ -246,25 +213,6 @@ export default function SignUp() {
             }}
           />
 
-          <Modal
-            title="Biometric authentication"
-            subtitle="Enable biometric authentication in your settings to log into your account."
-            confirmButtonTitle="Ok"
-            icon={<BiometricIcon />}
-            onClose={() => setwarningBiometricModalVisibile(false)}
-            visible={warningBiometricModalVisibile}
-            onConfirm={() => setwarningBiometricModalVisibile(false)}
-          />
-
-          <Modal
-            title="Biometric authentication"
-            subtitle="Authenticate with biometric"
-            confirmButtonTitle="Sign In"
-            icon={<BiometricIcon />}
-            onClose={() => setBiometricModalVisibile(false)}
-            visible={BiometricModalVisibile}
-            onConfirm={() => authenticate()}
-          />
           <Loader isVisible={isLoading} />
         </ScrollView>
       </KeyboardAvoidingView>

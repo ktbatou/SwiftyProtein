@@ -93,13 +93,11 @@ export default function LigandsList() {
         visible={isWarningModalVisible}
         onConfirm={() => {
           setIsWarningModalVisible(false);
-          setIsLoading(true);
-          const timeoutId = setTimeout(() => {
-            setIsLoading(false);
-            router.replace("choose-auth");
-          }, 1);
+          const _timeoutId = setTimeout(() => {
+            router.replace("sign-in");
+          }, 0);
           setIsWarningModalVisible(false);
-          return () => clearTimeout(timeoutId);
+          return () => clearTimeout(_timeoutId);
         }}
         closeIconVisibile={true}
       />
