@@ -1,4 +1,10 @@
-import { ScrollView, View, Text, TouchableOpacity } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -49,33 +55,33 @@ export default function LigandsList() {
             <LogoutIcon />
           </TouchableOpacity>
         </View>
-        <ScrollView
-          style={styles.flex1}
-          contentContainerStyle={[styles.flexGrow1]}
-          bounces={false}
-          showsVerticalScrollIndicator={true}
-        >
-          {filteredLigands.length === 0 ? (
-            <View style={styles.centerContainer}>
-              <Text style={[typography.heading1Regular, styles.grayText]}>
-                No ligands found
-              </Text>
-            </View>
-          ) : (
-            <View style={[styles.fullWidth, styles.ligandsListContainer]}>
-              {filteredLigands.map((ligand, index) => {
-                return (
-                  <TouchableOpacity onPress={() => {}} key={index}>
-                    <View style={styles.ligandContainer}>
-                      <AtomIcon />
-                      <Text style={styles.ligandText}>{ligand}</Text>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-          )}
-        </ScrollView>
+
+        {filteredLigands.length === 0 ? (
+          <View style={styles.centerContainer}>
+            <Text style={[typography.heading1Regular, styles.grayText]}>
+              No ligands found
+            </Text>
+          </View>
+        ) : (
+          <FlatList
+            showsVerticalScrollIndicator={true}
+            contentContainerStyle={[
+              styles.fullWidth,
+              styles.ligandsListContainer,
+            ]}
+            data={filteredLigands}
+            renderItem={(item) => {
+              return (
+                <TouchableOpacity onPress={() => {}}>
+                  <View style={styles.ligandContainer}>
+                    <AtomIcon />
+                    <Text style={styles.ligandText}>{item.item}</Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
       </View>
 
       <Modal
@@ -87,13 +93,11 @@ export default function LigandsList() {
         visible={isWarningModalVisible}
         onConfirm={() => {
           setIsWarningModalVisible(false);
-          setIsLoading(true);
-          const timeoutId = setTimeout(() => {
-            setIsLoading(false);
-            router.replace("choose-auth");
-          }, 1);
+          const _timeoutId = setTimeout(() => {
+            router.replace("sign-in");
+          }, 0);
           setIsWarningModalVisible(false);
-          return () => clearTimeout(timeoutId);
+          return () => clearTimeout(_timeoutId);
         }}
         closeIconVisibile={true}
       />

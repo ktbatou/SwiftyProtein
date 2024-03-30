@@ -33,7 +33,15 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
   },
+  biometricContainer: {
+    alignSelf: "center",
+    marginTop: 50,
+    gap: 15,
+  },
 
+  centerAlign: {
+    alignSelf: "center",
+  },
   flexEnd: {
     justifyContent: "flex-end",
   },
