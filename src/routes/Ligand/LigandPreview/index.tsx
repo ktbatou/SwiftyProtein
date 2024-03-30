@@ -100,7 +100,13 @@ export default function LigandPreview(props: ILigandPreviewProps) {
 
       const mesh = new Mesh(geometry, material);
       mesh.position.set(atom.x, atom.y, atom.z);
-      mesh.name = JSON.stringify({ ...color, color: color[activeColor] });
+      mesh.name = JSON.stringify({
+        ...color,
+        color: color[activeColor],
+        element: atom.element,
+        discoverdBy: color.discoverd_by,
+        phase: color.phase,
+      });
       mesh.userData.isAtom = true;
 
       scene.add(mesh);

@@ -77,7 +77,7 @@ export default function LigandsList() {
           bounces={false}
           showsVerticalScrollIndicator={true}
         >
-          {isLoading && <Text>...isLoading</Text>}
+          {isLoading && <Loader isVisible={isLoading} />}
           {filteredLigands.length === 0 ? (
             <View style={styles.centerContainer}>
               <Text style={[typography.heading1Regular, styles.grayText]}>

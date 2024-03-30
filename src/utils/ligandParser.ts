@@ -42,7 +42,7 @@ export default async function ligandParser(
   const serials: ISerials = {};
 
   const data = await fetchProteinData(
-    `https://files.rcsb.org/ligands/0/${ligand}/${ligand}_ideal.pdb`
+    `https://files.rcsb.org/ligands/${ligand.charAt(0)}/${ligand}/${ligand}_ideal.pdb`
   );
 
   if (!data) {
