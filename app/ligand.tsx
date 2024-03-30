@@ -65,7 +65,7 @@ const Ligand = () => {
         ]}
       >
         <Header ligand={ligand || ""} onShare={captureSaveAndShare} />
-        <LigandPreview ligand={ligand || "ligand"} />
+        <LigandPreview />
       </View>
     </SafeAreaView>
   );

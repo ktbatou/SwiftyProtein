@@ -15,18 +15,12 @@ import {
   DirectionalLight,
 } from "three";
 import { IAtom } from "src/utils/ligandParser";
-import SwitchersPanel from "@components/SwitchersPanel";
+import SwitchersPanel from "@routes/Ligand/SwitchersPanel";
 import { useAppContext } from "src/lib/AppContext";
 import ViewShot from "react-native-view-shot";
-import * as Sharing from "expo-sharing";
-import * as FileSystem from "expo-file-system";
+import ControlsPanel from "@routes/Ligand/ControlsPanel";
 
-interface ILigandPreviewProps {
-  ligand: string;
-}
-
-export default function LigandPreview(props: ILigandPreviewProps) {
-  const { ligand } = props;
+export default function LigandPreview() {
   const {
     activeColor,
     activeModelisation,
@@ -157,29 +151,39 @@ export default function LigandPreview(props: ILigandPreviewProps) {
     render();
   };
 
-  const zoomIn = () => {
+  const onZoomIn = () => {
     camera.fov = Math.max(10, camera.fov - 5);
     camera.updateProjectionMatrix();
   };
 
-  const zoomOut = () => {
+  const onZoomOut = () => {
     camera.fov = Math.min(100, camera.fov + 5);
     camera.updateProjectionMatrix();
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <ViewShot
-        ref={viewShotRef}
-        options={{ format: "jpg", quality: 0.9 }}
-        style={{ flex: 1 }}
-      >
-        <GLView
-          key={String(rerenderState)}
-          onContextCreate={onContextCreate}
+      <View style={{ flex: 1 }}>
+        <ViewShot
+          ref={viewShotRef}
+          options={{ format: "jpg", quality: 0.9 }}
           style={{ flex: 1 }}
+        >
+          <GLView
+            key={String(rerenderState)}
+            onContextCreate={onContextCreate}
+            style={{ flex: 1 }}
+          />
+        </ViewShot>
+        <ControlsPanel
+          onZoomIn={onZoomIn}
+          onZoomOut={onZoomOut}
+          onMoveDown={() => {}}
+          onMoveLeft={() => {}}
+          onMoveRight={() => {}}
+          onMoveUp={() => {}}
         />
-      </ViewShot>
+      </View>
       <SwitchersPanel />
     </View>
   );
