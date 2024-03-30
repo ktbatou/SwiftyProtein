@@ -52,7 +52,7 @@ export default function LigandsList() {
           return;
         }
         setLigandData(value);
-        router.push("/ligand");
+        router.push(`/ligand?ligand=${ligand}`);
         setIsLoading(false);
       })
       .catch((error) => {

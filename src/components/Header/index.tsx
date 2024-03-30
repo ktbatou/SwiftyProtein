@@ -10,21 +10,23 @@ import {
   ViewStyle,
 } from "react-native";
 
-interface IHeader {
+interface IHeaderProps {
   ligand: string;
   onShare: () => void;
   headerContainerStyle?: StyleProp<ViewStyle>;
 }
 
-export default function Header(params: IHeader) {
+export default function Header(params: IHeaderProps) {
   const { ligand, onShare, headerContainerStyle } = params;
   return (
     <View style={[styles.headerContiner, headerContainerStyle]}>
       <TouchableOpacity onPress={() => router.back()}>
         <BackArrowIcon />
       </TouchableOpacity>
-      <Text style={styles.title}>{`Protein: ${ligand}`}</Text>
-      <TouchableOpacity>
+      <Text
+        style={[typography.heading1Regular, styles.title]}
+      >{`Protein: ${ligand}`}</Text>
+      <TouchableOpacity onPress={onShare}>
         <ShareIcon />
       </TouchableOpacity>
     </View>

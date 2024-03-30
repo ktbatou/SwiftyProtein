@@ -12,7 +12,6 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
     color: colors.blackGray,
   },
 });

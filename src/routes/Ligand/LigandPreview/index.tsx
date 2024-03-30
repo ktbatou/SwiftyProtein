@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
 import { Renderer } from "expo-three";
 import {
@@ -15,18 +15,11 @@ import {
   DirectionalLight,
 } from "three";
 import { IAtom } from "src/utils/ligandParser";
-import Options from "@components/Options";
+import SwitchersPanel from "@components/SwitchersPanel";
 import { useAppContext } from "src/lib/AppContext";
 import ViewShot from "react-native-view-shot";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
-import {
-  GestureEvent,
-  HandlerStateChangeEvent,
-  PinchGestureHandler,
-  PinchGestureHandlerEventPayload,
-  State,
-} from "react-native-gesture-handler";
 
 interface ILigandPreviewProps {
   ligand: string;
@@ -155,43 +148,13 @@ export default function LigandPreview(props: ILigandPreviewProps) {
   const startRendering = (gl: ExpoWebGLRenderingContext) => {
     const render = () => {
       requestAnimationFrame(render);
-      scene.rotateX(0.01);
-      scene.rotateZ(0.01);
-      scene.rotateY(0.01);
+      // scene.rotateX(0.01);
+      // scene.rotateZ(0.01);
+      // scene.rotateY(0.01);
       renderer.render(scene, camera);
       gl.endFrameEXP();
     };
     render();
-  };
-
-  const captureSaveAndShare = async () => {
-    if (viewShotRef.current) {
-      try {
-        const uri: string = await viewShotRef.current.capture();
-        const fileName = `${ligand}.jpg`;
-        const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
-
-        await FileSystem.copyAsync({
-          from: uri,
-          to: fileUri,
-        });
-
-        const fileExists = await FileSystem.getInfoAsync(uri);
-        if (fileExists.exists) {
-          await Sharing.shareAsync(fileUri, {
-            mimeType: "image/jpeg", // Android requires mimeType to be set for sharing
-            dialogTitle: `Share ${ligand}`,
-            UTI: "public.jpeg", // iOS requires UTI (Uniform Type Identifier) for sharing
-          });
-        } else {
-          alert("File does not exist");
-          console.error("File does not exist");
-        }
-      } catch (error) {
-        alert("Capture, Save, or Share failed");
-        console.error("Capture, Save, or Share failed", error);
-      }
-    }
   };
 
   const zoomIn = () => {
@@ -204,41 +167,8 @@ export default function LigandPreview(props: ILigandPreviewProps) {
     camera.updateProjectionMatrix();
   };
 
-  const [scale, setScale] = useState(1);
-
-  // const onPinchEvent = (
-  //   event: GestureEvent<PinchGestureHandlerEventPayload>
-  // ) => {
-  //   const { scale } = event.nativeEvent;
-  //   setScale(scale);
-  //   // You can directly manipulate the camera here or store the scale in state
-  //   // For example, adjust the camera's FOV based on the scale
-  //   camera.fov = 75 / scale; // Adjust this formula as needed
-  //   camera.updateProjectionMatrix();
-  // };
-
-  // const onPinchStateChange = (
-  //   event: HandlerStateChangeEvent<PinchGestureHandlerEventPayload>
-  // ) => {
-  //   if (event.nativeEvent.oldState === State.ACTIVE) {
-  //     // Gesture ended
-  //     // Finalize the zoom effect based on the last known scale
-  //     // Here you can adjust the camera's FOV or position to finalize the zoom effect
-  //     camera.fov = Math.max(10, Math.min(100, 75 / scale)); // Example adjustment
-  //     camera.updateProjectionMatrix();
-
-  //     // Reset the scale for the next gesture, if you're keeping track of it
-  //     setScale(1);
-  //   }
-  // };
-
   return (
-    <View style={{ flex: 1, backgroundColor: "#A4AAEE" }}>
-      <TouchableOpacity onPress={captureSaveAndShare}>
-        <Text>Capture View</Text>
-      </TouchableOpacity>
-      <Options />
-
+    <View style={{ flex: 1 }}>
       <ViewShot
         ref={viewShotRef}
         options={{ format: "jpg", quality: 0.9 }}
@@ -250,6 +180,7 @@ export default function LigandPreview(props: ILigandPreviewProps) {
           style={{ flex: 1 }}
         />
       </ViewShot>
+      <SwitchersPanel />
     </View>
   );
 }
