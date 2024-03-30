@@ -34,16 +34,17 @@ export default function ChooseAuth() {
   }
 
   async function authenticate() {
+    setIsLoading(true);
     const biometricAuthentication = await biometric.Auth();
+    setIsLoading(false);
 
     if (biometricAuthentication.success) {
-      setIsLoading(true);
       setBiometricModalVisibile(false);
-
-      setTimeout(() => {
-        setIsLoading(false);
+      const timeoutId = setTimeout(() => {
         router.replace("ligands-list");
-      }, 1);
+      }, 0);
+
+      return () => clearTimeout(timeoutId);
     } else {
       setBiometricModalVisibile(false);
       setIsLoading(false);

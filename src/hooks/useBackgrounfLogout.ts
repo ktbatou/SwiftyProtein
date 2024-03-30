@@ -6,7 +6,7 @@ export default function useBackgroundLogout() {
   useEffect(() => {
     function handleAppStateChange(nextAppState: AppStateStatus) {
       if (nextAppState === "background") {
-        router.replace("/choose-auth");
+        router.replace("/sign-in");
       }
     }
 
