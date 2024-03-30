@@ -6,3 +6,5 @@ export { default as LogoutIcon } from "./Logout";
 export { default as CircleCheckIcon } from "./CircleCheck";
 export { default as InlineCircleExclamationIcon } from "./InlineCircleExclamation";
 export { default as CrossIcon } from "./Cross";
+export { default as ShareIcon } from "./Share";
+export { default as BackArrowIcon } from "./BackArrow";
