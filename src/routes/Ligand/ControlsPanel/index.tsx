@@ -1,6 +1,15 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import styles from "./style";
+import CircleButton from "@components/CircleButton";
+import {
+  DownArrowIcon,
+  LeftArrowIcon,
+  MinusIcon,
+  PlusIcon,
+  RightArrowIcon,
+  UpArrowIcon,
+} from "@components/icons";
 
 interface IControlsPanelProps {
   onZoomIn: () => void;
@@ -17,8 +26,32 @@ function ControlsPanel(props: IControlsPanelProps) {
 
   return (
     <View style={styles.container}>
-      <Text>+</Text>
-      <Text>-</Text>
+      <View>
+        <CircleButton
+          onPress={onMoveLeft}
+          icon={<LeftArrowIcon />}
+          containerStyle={{ marginBottom: 20 }}
+        />
+        <CircleButton
+          onPress={onMoveDown}
+          icon={<DownArrowIcon />}
+          containerStyle={{ marginBottom: 20 }}
+        />
+        <CircleButton onPress={onZoomOut} icon={<MinusIcon />} />
+      </View>
+      <View>
+        <CircleButton
+          onPress={onMoveRight}
+          icon={<RightArrowIcon />}
+          containerStyle={{ marginBottom: 20 }}
+        />
+        <CircleButton
+          onPress={onMoveUp}
+          icon={<UpArrowIcon />}
+          containerStyle={{ marginBottom: 20 }}
+        />
+        <CircleButton onPress={onZoomIn} icon={<PlusIcon />} />
+      </View>
     </View>
   );
 }
