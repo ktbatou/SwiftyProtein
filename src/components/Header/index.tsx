@@ -23,9 +23,7 @@ export default function Header(params: IHeader) {
       <TouchableOpacity onPress={() => router.back()}>
         <BackArrowIcon />
       </TouchableOpacity>
-      <Text
-        style={[typography.heading1Regular, styles.blackText]}
-      >{`Protein: ${ligand}`}</Text>
+      <Text style={styles.title}>{`Protein: ${ligand}`}</Text>
       <TouchableOpacity>
         <ShareIcon />
       </TouchableOpacity>

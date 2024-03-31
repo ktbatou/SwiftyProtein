@@ -11,7 +11,8 @@ export default StyleSheet.create({
     alignItems: "center",
   },
 
-  blackText: {
+  title: {
+    fontSize: 24,
     color: colors.blackGray,
   },
 });
