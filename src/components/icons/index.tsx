@@ -6,3 +6,8 @@ export { default as LogoutIcon } from "./Logout";
 export { default as CircleCheckIcon } from "./CircleCheck";
 export { default as InlineCircleExclamationIcon } from "./InlineCircleExclamation";
 export { default as CrossIcon } from "./Cross";
+export { default as PlusIcon } from "./Plus";
+export { default as MinusIcon } from "./Minus";
+export { default as UpArrowIcon } from "./UpArrow";
+export { default as DownArrowIcon } from "./DownArrow";
+export { default as RightArrowIcon } from "./RightArrow";
