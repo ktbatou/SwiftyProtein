@@ -30,12 +30,12 @@ function ControlsPanel(props: IControlsPanelProps) {
         <CircleButton
           onPress={onMoveLeft}
           icon={<LeftArrowIcon />}
-          containerStyle={{ marginBottom: 20 }}
+          containerStyle={styles.mb20}
         />
         <CircleButton
           onPress={onMoveDown}
           icon={<DownArrowIcon />}
-          containerStyle={{ marginBottom: 20 }}
+          containerStyle={styles.mb20}
         />
         <CircleButton onPress={onZoomOut} icon={<MinusIcon />} />
       </View>
@@ -43,12 +43,12 @@ function ControlsPanel(props: IControlsPanelProps) {
         <CircleButton
           onPress={onMoveRight}
           icon={<RightArrowIcon />}
-          containerStyle={{ marginBottom: 20 }}
+          containerStyle={styles.mb20}
         />
         <CircleButton
           onPress={onMoveUp}
           icon={<UpArrowIcon />}
-          containerStyle={{ marginBottom: 20 }}
+          containerStyle={styles.mb20}
         />
         <CircleButton onPress={onZoomIn} icon={<PlusIcon />} />
       </View>

@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  bgTransparentBlack: {
-    backgroundColor: "rgba(1, 0, 23, 0.30)",
-  },
   title: {
     marginBottom: 15,
     textAlign: "center",
@@ -32,6 +29,10 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     marginTop: 20,
+  },
+
+  bgTransparentBlack: {
+    backgroundColor: "rgba(1, 0, 23, 0.30)",
   },
 });
 

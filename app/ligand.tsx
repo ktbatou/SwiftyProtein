@@ -5,12 +5,12 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import colors from "@styles/colors";
 import LigandPreview from "@routes/Ligand/LigandPreview";
 import Header from "@components/Header";
 import { useAppContext } from "src/lib/AppContext";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
+import styles from "@routes/Ligand/style";
 
 interface ILigandSearchParams extends Record<string, string> {
   ligand: string;
@@ -52,18 +52,8 @@ const Ligand = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={{ top: "off" }}>
-      <View
-        style={[
-          {
-            flex: 1,
-            width: "100%",
-            backgroundColor: colors.mainWhite,
-            paddingHorizontal: 20,
-          },
-          { paddingTop: top },
-        ]}
-      >
+    <SafeAreaView style={styles.flex1} edges={{ top: "off" }}>
+      <View style={[styles.outerContainer, { paddingTop: top }]}>
         <Header ligand={ligand || ""} onShare={captureSaveAndShare} />
         <LigandPreview />
       </View>

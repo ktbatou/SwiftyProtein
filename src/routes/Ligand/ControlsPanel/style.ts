@@ -9,6 +9,10 @@ const styles = StyleSheet.create({
     width: "100%",
     bottom: 20,
   },
+
+  mb20: {
+    marginBottom: 20,
+  },
 });
 
 export default styles;
