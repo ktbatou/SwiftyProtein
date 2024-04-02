@@ -2,23 +2,25 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { Dimensions, GestureResponderEvent, Text, View } from "react-native";
 import { ExpoWebGLRenderingContext, GLView } from "expo-gl";
 import { Renderer } from "expo-three";
-import {
-  AmbientLight,
-  SphereGeometry,
-  PerspectiveCamera,
-  Scene,
-  Mesh,
-  CylinderGeometry,
-  Vector3,
-  BoxGeometry,
-  MeshMatcapMaterial,
-  DirectionalLight,
-  Group,
-  Raycaster,
-  Vector2,
-  Color,
-  MeshPhongMaterial,
-} from "three";
+// import {
+//   AmbientLight,
+//   SphereGeometry,
+//   PerspectiveCamera,
+//   Scene,
+//   Mesh,
+//   CylinderGeometry,
+//   Vector3,
+//   BoxGeometry,
+//   MeshMatcapMaterial,
+//   DirectionalLight,
+//   Group,
+//   Raycaster,
+//   Vector2,
+//   Color,
+//   MeshPhongMaterial,
+// } from "three";
+
+import * as THREE from "three";
 import { IAtom } from "src/utils/ligandParser";
 import SwitchersPanel from "@routes/Ligand/SwitchersPanel";
 import { useAppContext } from "src/lib/AppContext";
@@ -52,12 +54,12 @@ export default function LigandPreview() {
   // const objects = useRef<Mesh[]>([]);
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
   const rendererRef = useRef<Renderer>();
-  const raycaster = new Raycaster();
-  const scene = new Scene();
+  const raycaster = new THREE.Raycaster();
+  const scene = new THREE.Scene();
   const [aspectRatio, setCameraRatio] = useState(
     width < height ? width / height : height / width
   );
-  const camera = new PerspectiveCamera(75, aspectRatio, 0.1, 1000);
+  const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
 
   if (!ligandData) {
     return <></>;
@@ -216,7 +218,7 @@ export default function LigandPreview() {
     // }
     console.log("===========>", height, width);
     const { pageX, pageY } = nativeEvent;
-    const mouse2D = new Vector2();
+    const mouse2D = new THREE.Vector2();
     mouse2D.x = (pageX / width) * 2 - 1;
     mouse2D.y = -(pageY / height) * 2 + 1;
     console.log("==========>", mouse2D);
@@ -225,7 +227,7 @@ export default function LigandPreview() {
     const intersects = raycaster.intersectObjects(scene.children);
     console.log("========>", intersects);
     if (intersects.length > 0) {
-      console.log(intersects[0]);
+      console.log(intersects[0].object.AtomsInfos);
       // setAtomData(JSON.parse(intersects[0].object.name));
       // setVisible(true);
     }
@@ -234,19 +236,20 @@ export default function LigandPreview() {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 1 }}>
-        <OrbitControlsView
-          style={{ flex: 2, position: "relative" }}
-          key={String(rerenderState)}
-          camera={camera.current}
-          onTouchEndCapture={intersect}
-        >
-          {/* <Text>hello</Text> */}
-          {/* <ViewShot
+        {camera && (
+          <OrbitControlsView
+            style={{ flex: 2, position: "relative" }}
+            key={String(rerenderState)}
+            camera={camera}
+            onTouchEndCapture={intersect}
+          >
+            {/* <Text>hello</Text> */}
+            {/* <ViewShot
             ref={viewShotRef}
             options={{ format: "jpg", quality: 0.9 }}
             style={{ flex: 1 }}
           > */}
-          <GLView
+            {/* <GLView
             key={String(rerenderState)}
             onContextCreate={async (gl) => {
               const { drawingBufferWidth: width, drawingBufferHeight: height } =
@@ -254,7 +257,7 @@ export default function LigandPreview() {
 
               const renderer = new Renderer({ gl });
               rendererRef.current = renderer;
-              renderer.setClearColor("#000");
+              renderer.setClearColor("#fff");
               renderer.setSize(width, height);
 
               camera.position.set(0, 0, 30);
@@ -322,9 +325,10 @@ export default function LigandPreview() {
             //   // if (x == startPoint.x && y == startPoint.y)
             //   intersect(event);
             // }}
-          />
-          {/* </ViewShot> */}
-        </OrbitControlsView>
+          /> */}
+            {/* </ViewShot> */}
+          </OrbitControlsView>
+        )}
         <ControlsPanel
           onZoomIn={onZoomIn}
           onZoomOut={onZoomOut}
