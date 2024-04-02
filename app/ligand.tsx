@@ -36,9 +36,9 @@ const Ligand = () => {
         const fileExists = await FileSystem.getInfoAsync(uri);
         if (fileExists.exists) {
           await Sharing.shareAsync(fileUri, {
-            mimeType: "image/jpeg", // Android requires mimeType to be set for sharing
+            mimeType: "image/jpeg",
             dialogTitle: `Share ${ligand}`,
-            UTI: "public.jpeg", // iOS requires UTI (Uniform Type Identifier) for sharing
+            UTI: "public.jpeg",
           });
         } else {
           alert("File does not exist");

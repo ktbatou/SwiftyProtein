@@ -19,7 +19,6 @@ export interface IAtom {
   z: number;
   element: string;
   name: string;
-  //! Add more properties if needed
 }
 
 export interface ISerials {
