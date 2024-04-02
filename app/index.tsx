@@ -46,7 +46,7 @@ export default function App() {
     if (isFirstLaunch) {
       return <Redirect href={"/sign-up"} />;
     } else {
-      return <Redirect href={"/sign-in"} />;
+      return <Redirect href={"/ligands-list"} />;
     }
   }
 }
