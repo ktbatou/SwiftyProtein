@@ -9,6 +9,7 @@ import React, {
 import { Dimensions } from "react-native";
 import cpkColors from "@utils/CPKColors.json";
 import { ILigandParserResult } from "@utils/ligandParser";
+import { Group, Mesh, Raycaster, Scene } from "three";
 
 export type TModelisation = "SPHERE" | "CUBE";
 export type TColor = "rasmol" | "jmol";
@@ -24,6 +25,10 @@ interface ContextState {
   ligandData: ILigandParserResult | undefined;
   setLigandData: (data: ILigandParserResult) => void;
   viewShotRef: any;
+  raycaster: Raycaster;
+  scene: Scene;
+  moleculeGroup: Group;
+  objects: Mesh[];
 }
 
 const defaultState: ContextState = {
@@ -36,6 +41,10 @@ const defaultState: ContextState = {
   ligandData: undefined,
   setLigandData: () => {},
   viewShotRef: undefined,
+  moleculeGroup: new Group(),
+  objects: [],
+  raycaster: new Raycaster(),
+  scene: new Scene(),
 };
 
 const AppContext = createContext<ContextState>(defaultState);
@@ -88,6 +97,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         ligandData,
         setLigandData,
         viewShotRef,
+        moleculeGroup: new Group(),
+        objects: [],
+        raycaster: new Raycaster(),
+        scene: new Scene(),
       }}
     >
       {children}
