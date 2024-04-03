@@ -11,6 +11,7 @@ import { useAppContext } from "src/lib/AppContext";
 import * as Sharing from "expo-sharing";
 import * as FileSystem from "expo-file-system";
 import styles from "@routes/Ligand/style";
+import * as MediaLibrary from "expo-media-library";
 
 interface ILigandSearchParams extends Record<string, string> {
   ligand: string;
@@ -24,29 +25,28 @@ const Ligand = () => {
   const captureSaveAndShare = async () => {
     if (viewShotRef.current) {
       try {
-        const uri: string = await viewShotRef.current.capture();
+        const uri = await viewShotRef.current.capture();
         const fileName = `${ligand}.jpg`;
         const fileUri = `${FileSystem.cacheDirectory}${fileName}`;
 
-        await FileSystem.copyAsync({
-          from: uri,
-          to: fileUri,
-        });
+        await FileSystem.copyAsync({ from: uri, to: fileUri });
 
-        const fileExists = await FileSystem.getInfoAsync(uri);
-        if (fileExists.exists) {
-          await Sharing.shareAsync(fileUri, {
-            mimeType: "image/jpeg",
-            dialogTitle: `Share ${ligand}`,
-            UTI: "public.jpeg",
-          });
-        } else {
-          alert("File does not exist");
-          console.error("File does not exist");
+        // Save to gallery
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        if (status === "granted") {
+          const asset = await MediaLibrary.createAssetAsync(fileUri);
+          await MediaLibrary.createAlbumAsync("Ligands", asset, false);
         }
+
+        // Share
+        await Sharing.shareAsync(fileUri, {
+          mimeType: "image/jpeg",
+          dialogTitle: `Share ${ligand}`,
+          UTI: "public.jpeg",
+        });
       } catch (error) {
-        alert("Capture, Save, or Share failed");
         console.error("Capture, Save, or Share failed", error);
+        alert("Capture, Save, or Share failed");
       }
     }
   };
