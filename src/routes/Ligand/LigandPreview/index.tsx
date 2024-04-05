@@ -6,16 +6,16 @@ import {
   AmbientLight,
   SphereGeometry,
   PerspectiveCamera,
-  Scene,
   Mesh,
   CylinderGeometry,
   Vector3,
   BoxGeometry,
   MeshMatcapMaterial,
   DirectionalLight,
-  Group,
-  Raycaster,
   Vector2,
+  Material,
+  Texture,
+  Scene,
 } from "three";
 import { IAtom } from "src/utils/ligandParser";
 import SwitchersPanel from "@routes/Ligand/SwitchersPanel";
@@ -49,19 +49,50 @@ export default function LigandPreview() {
     raycaster,
     scene,
   } = useAppContext();
+  const [visible, setVisible] = useState(false);
   const [atomData, setAtomData] = useState<IAtomData>();
   const [rerenderState, setRerenderState] = useState(false);
-  // const raycaster = useRef<Raycaster>(new Raycaster());
   const camera = useRef<PerspectiveCamera | null>(null);
   const renderer = useRef<Renderer>();
-  // const scene = useRef<Scene>(new Scene());
-  // const moleculeGroup = useRef<Group>(new Group());
-  // const objects = useRef<Mesh[]>([]);
-  const [visible, setVisible] = useState(false);
 
   if (!ligandData) {
     return <></>;
   }
+
+  useEffect(() => {
+    function cleanupScene(scene: Scene): void {
+      scene.traverse((object) => {
+        if ((object as Mesh).isMesh) {
+          const mesh = object as Mesh;
+          mesh.geometry?.dispose();
+
+          const materials = Array.isArray(mesh.material)
+            ? mesh.material
+            : [mesh.material];
+          materials.forEach((material: Material) => {
+            disposeMaterial(material);
+          });
+        }
+      });
+
+      function disposeMaterial(material: Material): void {
+        Object.keys(material).forEach((prop) => {
+          const value = material[prop as keyof Material];
+          if (value && (value as Texture).dispose) {
+            (value as Texture).dispose();
+          }
+        });
+        material.dispose();
+      }
+
+      while (scene.children.length > 0) {
+        scene.remove(scene.children[0]);
+      }
+    }
+
+    cleanupScene(scene);
+  }, []);
+
   useEffect(() => {
     setRerenderState((prev) => !prev);
   }, [activeColor, activeModelisation, orientation]);
