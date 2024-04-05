@@ -44,15 +44,19 @@ export default function LigandPreview() {
     cpkColors,
     ligandData,
     viewShotRef,
+    moleculeGroup,
+    objects,
+    raycaster,
+    scene,
   } = useAppContext();
   const [atomData, setAtomData] = useState<IAtomData>();
   const [rerenderState, setRerenderState] = useState(false);
-  const raycaster = useRef<Raycaster>(new Raycaster());
+  // const raycaster = useRef<Raycaster>(new Raycaster());
   const camera = useRef<PerspectiveCamera | null>(null);
   const renderer = useRef<Renderer>();
-  const scene = useRef<Scene>(new Scene());
-  const moleculeGroup = useRef<Group>(new Group());
-  const objects = useRef<Mesh[]>([]);
+  // const scene = useRef<Scene>(new Scene());
+  // const moleculeGroup = useRef<Group>(new Group());
+  // const objects = useRef<Mesh[]>([]);
   const [visible, setVisible] = useState(false);
 
   if (!ligandData) {
@@ -71,7 +75,7 @@ export default function LigandPreview() {
   };
 
   const initializeScene = (gl: ExpoWebGLRenderingContext) => {
-    scene.current.add(moleculeGroup.current);
+    scene.add(moleculeGroup);
     camera.current = new PerspectiveCamera(
       orientation === "PORTRAIT" ? 45 : 20,
       gl.drawingBufferWidth / gl.drawingBufferHeight,
@@ -108,8 +112,8 @@ export default function LigandPreview() {
       });
       mesh.userData.isAtom = true;
 
-      moleculeGroup.current.add(mesh);
-      objects.current.push(mesh);
+      moleculeGroup.add(mesh);
+      objects.push(mesh);
     });
   };
 
@@ -142,21 +146,21 @@ export default function LigandPreview() {
     const cylinder = new Mesh(geometry, material);
     cylinder.position.copy(startPoint);
     cylinder.lookAt(endPoint);
-    moleculeGroup.current.add(cylinder);
+    moleculeGroup.add(cylinder);
   };
 
   const setupLighting = () => {
     const ambientLight = new AmbientLight(0x404040, 0.5);
-    scene.current.add(ambientLight);
+    scene.add(ambientLight);
     const directionalLight = new DirectionalLight(0xffffff, 0.8);
-    scene.current.add(directionalLight);
+    scene.add(directionalLight);
   };
 
   const startRendering = (gl: ExpoWebGLRenderingContext) => {
     const render = () => {
       requestAnimationFrame(render);
-      if (renderer.current && camera.current && scene.current) {
-        renderer.current.render(scene.current, camera.current);
+      if (renderer.current && camera.current && scene) {
+        renderer.current.render(scene, camera.current);
       }
       gl.endFrameEXP();
     };
@@ -164,7 +168,7 @@ export default function LigandPreview() {
   };
 
   function intersect(event: GestureResponderEvent) {
-    if (!camera.current || !raycaster.current) {
+    if (!camera.current || !raycaster) {
       console.error("Camera or raycaster is not initialized");
       return;
     }
@@ -174,8 +178,8 @@ export default function LigandPreview() {
       (pageX / screenWidth) * 2 - 1,
       -(pageY / screenHeight) * 2 + 1
     );
-    raycaster.current.setFromCamera(mouse2D, camera.current);
-    const intersects = raycaster.current.intersectObjects(objects.current);
+    raycaster.setFromCamera(mouse2D, camera.current);
+    const intersects = raycaster.intersectObjects(objects);
     if (intersects.length > 0) {
       setAtomData(JSON.parse(intersects[0].object.name));
       setVisible(true);
@@ -197,19 +201,19 @@ export default function LigandPreview() {
   };
 
   const onMoveUp = () => {
-    moleculeGroup.current.rotateX(0.1);
+    moleculeGroup.rotateX(0.1);
   };
 
   const onMoveDown = () => {
-    moleculeGroup.current.rotateX(-0.1);
+    moleculeGroup.rotateX(-0.1);
   };
 
   const onMoveLeft = () => {
-    moleculeGroup.current.rotateY(-0.1);
+    moleculeGroup.rotateY(-0.1);
   };
 
   const onMoveRight = () => {
-    moleculeGroup.current.rotateY(0.1);
+    moleculeGroup.rotateY(0.1);
   };
 
   return (
