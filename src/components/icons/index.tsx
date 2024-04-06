@@ -11,5 +11,6 @@ export { default as MinusIcon } from "./Minus";
 export { default as UpArrowIcon } from "./UpArrow";
 export { default as DownArrowIcon } from "./DownArrow";
 export { default as RightArrowIcon } from "./RightArrow";
+export { default as LeftArrowIcon } from "./LeftArrow";
 export { default as ShareIcon } from "./Share";
 export { default as BackArrowIcon } from "./BackArrow";

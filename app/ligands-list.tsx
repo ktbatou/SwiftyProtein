@@ -22,12 +22,14 @@ import typography from "@styles/typography";
 import { router } from "expo-router";
 import Modal from "@components/Modal";
 import Loader from "@components/Loader";
+import ligandParser from "@utils/ligandParser";
+import { useAppContext } from "src/lib/AppContext";
 
 export default function LigandsList() {
   const { top } = useSafeAreaInsets();
-
-  const [searchQuery, setSearchQuery] = useState("");
+  const { setLigandData } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isWarningModalVisible, setIsWarningModalVisible] = useState(false);
 
   const filteredLigands = searchQuery
@@ -39,6 +41,26 @@ export default function LigandsList() {
   function handleInputChange(text: string) {
     setSearchQuery(text);
   }
+
+  function onPress(ligand: string) {
+    setIsLoading(true);
+    ligandParser(ligand)
+      .then((value) => {
+        if (!value) {
+          alert("Error has occurred while looking for the ligand");
+          setIsLoading(false);
+          return;
+        }
+        setLigandData(value);
+        router.push(`/ligand?ligand=${ligand}`);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        alert("Error has occurred while looking for the ligand");
+        setIsLoading(false);
+      });
+  }
+
   return (
     <SafeAreaView style={styles.flex1} edges={{ top: "off" }}>
       <View style={[styles.contentContainer, { paddingTop: top }]}>
@@ -56,6 +78,7 @@ export default function LigandsList() {
           </TouchableOpacity>
         </View>
 
+        {isLoading && <Loader isVisible={isLoading} />}
         {filteredLigands.length === 0 ? (
           <View style={styles.centerContainer}>
             <Text style={[typography.heading1Regular, styles.grayText]}>
@@ -72,7 +95,7 @@ export default function LigandsList() {
             data={filteredLigands}
             renderItem={(item) => {
               return (
-                <TouchableOpacity onPress={() => {}}>
+                <TouchableOpacity onPress={() => onPress(item.item)}>
                   <View style={styles.ligandContainer}>
                     <AtomIcon />
                     <Text style={styles.ligandText}>{item.item}</Text>

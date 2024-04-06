@@ -10,6 +10,7 @@ interface ICircleButton {
 
 export default function CircleButton(props: ICircleButton) {
   const { onPress, icon, containerStyle } = props;
+
   return (
     <TouchableOpacity
       onPress={() => onPress()}
